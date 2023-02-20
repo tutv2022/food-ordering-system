@@ -17,6 +17,8 @@ public class Order extends AggregateRoot<OrderId> {
     private final Money price;
     private final List<OrderItem> items;
 
+    public static final String FAILURE_MESSAGE_DELIMETER = ",";
+
     private TrackingId trackingId;
     private OrderStatus orderStatus;
     private List<String> failureMessages;
@@ -188,7 +190,7 @@ public class Order extends AggregateRoot<OrderId> {
         }
 
 
-        public Builder id(OrderId orderId) {
+        public Builder orderId(OrderId orderId) {
             this.orderId = orderId;
             return this;
         }
