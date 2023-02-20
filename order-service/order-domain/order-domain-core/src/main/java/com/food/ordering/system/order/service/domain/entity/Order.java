@@ -17,7 +17,7 @@ public class Order extends AggregateRoot<OrderId> {
     private final Money price;
     private final List<OrderItem> items;
 
-    public static final String FAILURE_MESSAGE_DELIMETER = ",";
+    public static final String FAILURE_MESSAGE_DELIMITER = ",";
 
     private TrackingId trackingId;
     private OrderStatus orderStatus;

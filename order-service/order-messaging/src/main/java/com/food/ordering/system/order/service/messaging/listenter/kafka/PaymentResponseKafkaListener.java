@@ -32,7 +32,7 @@ public class PaymentResponseKafkaListener implements KafkaConsumer<PaymentRespon
     @KafkaListener(id = "${kafka-consumer-config.payment-consumer-group-id}",
             topics = "${order-service.payment-response-topic-name}")
     public void receive(@Payload List<PaymentResponseAvroModel> messages,
-                        @Header(KafkaHeaders.RECEIVED_KEY) List<Long> keys,
+                        @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,
                         @Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,
                         @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
         log.info("{} number of payment responses received with keys:{}, partitions:{} and offsets: {}",
@@ -46,6 +46,11 @@ public class PaymentResponseKafkaListener implements KafkaConsumer<PaymentRespon
             if (PaymentStatus.COMPLETED == paymentResponseAvroModel.getPaymentStatus()) {
                 log.info("Processing successful payment for order id: {}",paymentResponseAvroModel.getOrderId());
                 paymentResponseKafkaListener.paymentCompleted(
+                        orderMessagingDataMapper.paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel)
+                );
+            } else if ( PaymentStatus.CANCELLED == paymentResponseAvroModel.getPaymentStatus() ) {
+                log.info("Processing unsuccessful payment for order id: {}",paymentResponseAvroModel.getOrderId());
+                paymentResponseKafkaListener.paymentCancelled(
                         orderMessagingDataMapper.paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel)
                 );
             }
