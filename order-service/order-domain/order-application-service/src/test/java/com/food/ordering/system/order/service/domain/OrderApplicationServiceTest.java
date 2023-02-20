@@ -9,6 +9,7 @@ import com.food.ordering.system.order.service.domain.entity.Customer;
 import com.food.ordering.system.order.service.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.entity.Product;
 import com.food.ordering.system.order.service.domain.entity.Restaurant;
+import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
 import com.food.ordering.system.order.service.domain.mapper.OrderDataMapper;
 import com.food.ordering.system.order.service.domain.ports.input.OrderApplicationService;
 import com.food.ordering.system.order.service.domain.ports.output.repository.CustomerRepository;
@@ -26,8 +27,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -105,6 +105,29 @@ public class OrderApplicationServiceTest {
                 .active(true)
                 .build();
 
+        createOrderRequestWrongPrice = CreateOrderRequest.builder()
+                .customerId(CUSTOMER_ID)
+                .restaurantId(RESTAURANT_ID)
+                .address(OrderAddress.builder()
+                        .street("street_1")
+                        .postalCode("1000AB")
+                        .city("Paris")
+                        .build())
+                .price(new BigDecimal("250.00"))
+                .items(List.of(OrderItem.builder()
+                                .productId(PRODUCT_ID)
+                                .quantity(1)
+                                .price(new BigDecimal("50.00"))
+                                .subTotal(new BigDecimal("50.00"))
+                                .build(),
+                        OrderItem.builder()
+                                .productId(PRODUCT_ID2)
+                                .quantity(3)
+                                .price(new BigDecimal("50.00"))
+                                .subTotal(new BigDecimal("150.00"))
+                                .build()))
+                .build();
+
         Order order = orderDataMapper.createOrderRequestToOrder(createOrderRequest);
         order.setId(new OrderId(ORDER_ID));
 
@@ -120,6 +143,14 @@ public class OrderApplicationServiceTest {
         assertEquals(createOrderResponse.getOrderStatus(), OrderStatus.PENDING);
         assertEquals(createOrderResponse.getMessage(), "Order created successfully");
         assertNotNull(createOrderResponse.getOrderTrackingId());
+    }
+
+    @Test
+    public void testCreateOrderWithWrongTotalPrice() {
+        OrderDomainException orderDomainException = assertThrows(OrderDomainException.class,
+                () -> orderApplicationService.createOrder(createOrderRequestWrongPrice));
+        assertEquals(orderDomainException.getMessage(),
+                "Total price: 250.00 is not equal to Order items total: 200.00!");
     }
 
 
