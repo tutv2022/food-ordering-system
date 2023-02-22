@@ -1,7 +1,6 @@
 package com.food.ordering.system.order.service.messaging.listenter.kafka;
 
 import com.food.ordering.system.kafka.consumer.KafkaConsumer;
-import com.food.ordering.system.kafka.order.avro.model.PaymentRequestAvroModel;
 import com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel;
 import com.food.ordering.system.kafka.order.avro.model.PaymentStatus;
 import com.food.ordering.system.order.service.domain.ports.input.message.listener.payment.PaymentResponseMessageListener;
@@ -19,12 +18,12 @@ import java.util.List;
 @Component
 public class PaymentResponseKafkaListener implements KafkaConsumer<PaymentResponseAvroModel> {
 
-    private final PaymentResponseMessageListener paymentResponseKafkaListener;
+    private final PaymentResponseMessageListener paymentResponseMessageListener;
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
 
-    public PaymentResponseKafkaListener(PaymentResponseMessageListener paymentResponseKafkaListener, OrderMessagingDataMapper orderMessagingDataMapper) {
-        this.paymentResponseKafkaListener = paymentResponseKafkaListener;
+    public PaymentResponseKafkaListener(PaymentResponseMessageListener paymentResponseMessageListener, OrderMessagingDataMapper orderMessagingDataMapper) {
+        this.paymentResponseMessageListener = paymentResponseMessageListener;
         this.orderMessagingDataMapper = orderMessagingDataMapper;
     }
 
@@ -45,12 +44,12 @@ public class PaymentResponseKafkaListener implements KafkaConsumer<PaymentRespon
 
             if (PaymentStatus.COMPLETED == paymentResponseAvroModel.getPaymentStatus()) {
                 log.info("Processing successful payment for order id: {}",paymentResponseAvroModel.getOrderId());
-                paymentResponseKafkaListener.paymentCompleted(
+                paymentResponseMessageListener.paymentCompleted(
                         orderMessagingDataMapper.paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel)
                 );
             } else if ( PaymentStatus.CANCELLED == paymentResponseAvroModel.getPaymentStatus() ) {
                 log.info("Processing unsuccessful payment for order id: {}",paymentResponseAvroModel.getOrderId());
-                paymentResponseKafkaListener.paymentCancelled(
+                paymentResponseMessageListener.paymentCancelled(
                         orderMessagingDataMapper.paymentResponseAvroModelToPaymentResponse(paymentResponseAvroModel)
                 );
             }
