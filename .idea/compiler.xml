@@ -26,7 +26,6 @@
         <module name="common-domain" />
         <module name="order-application" />
         <module name="restaurant-application" />
-        <module name="restaurant-message" />
         <module name="restaurant-domain-core" />
         <module name="order-domain-core" />
         <module name="payment-domain-core" />
@@ -45,7 +44,7 @@
       <module name="customer-service" options="-parameters" />
       <module name="food-ordering-system" options="" />
       <module name="infrastructure" options="" />
-      <module name="kafka" options="-parameters" />
+      <module name="kafka" options="" />
       <module name="kafka-config-data" options="-parameters" />
       <module name="kafka-consumer" options="-parameters" />
       <module name="kafka-model" options="-parameters" />
