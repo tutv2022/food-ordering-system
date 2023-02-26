@@ -12,6 +12,7 @@ import com.food.ordering.system.service.domain.ports.output.message.publisher.Or
 import com.food.ordering.system.service.domain.ports.output.repository.OrderApprovalRepository;
 import com.food.ordering.system.service.domain.ports.output.repository.RestaurantRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
+@Component
 public class RestaurantApprovalRequestHelper {
     private final RestaurantDomainService restaurantDomainService;
     private final RestaurantDataMapper restaurantDataMapper;
