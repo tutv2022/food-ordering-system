@@ -3,11 +3,13 @@ package com.food.ordering.system.service.domain.dto;
 import com.food.ordering.system.domain.valueobject.RestaurantOrderStatus;
 import com.food.ordering.system.restaurant.service.domain.entity.Product;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 public class RestaurantApprovalRequest {
     private String id;
