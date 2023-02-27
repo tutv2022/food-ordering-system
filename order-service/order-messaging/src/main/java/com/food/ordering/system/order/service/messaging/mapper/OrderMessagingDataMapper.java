@@ -49,7 +49,7 @@ public class OrderMessagingDataMapper {
                 .setId(UUID.randomUUID().toString())
                 .setSagaId("")
                 .setOrderId(order.getId().getValue().toString())
-                .setRestaurantId(order.getId().getValue().toString())
+                .setRestaurantId(order.getRestaurantId().getValue().toString())
                 .setRestaurantOrderStatus(RestaurantOrderStatus.valueOf(
                         order.getOrderStatus().name()
                 ))

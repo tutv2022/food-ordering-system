@@ -4,7 +4,6 @@ import com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel;
 import com.food.ordering.system.kafka.producer.KafkaMessageHelper;
 import com.food.ordering.system.kafka.producer.service.KafkaProducer;
 import com.food.ordering.system.payment.service.domain.config.PaymentServiceConfigData;
-import com.food.ordering.system.payment.service.domain.event.PaymentCancelledEvent;
 import com.food.ordering.system.payment.service.domain.event.PaymentFailedEvent;
 import com.food.ordering.system.payment.service.domain.ports.output.message.publisher.PaymentFailedMessagePublisher;
 import com.food.ordering.system.payment.service.messaging.mapper.PaymentMessagingDataMapper;

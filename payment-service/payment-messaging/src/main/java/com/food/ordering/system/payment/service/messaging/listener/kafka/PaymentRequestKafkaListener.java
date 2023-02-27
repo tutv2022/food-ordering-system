@@ -6,15 +6,12 @@ import com.food.ordering.system.kafka.order.avro.model.PaymentRequestAvroModel;
 import com.food.ordering.system.payment.service.domain.ports.input.message.listener.PaymentRequestMessageListener;
 import com.food.ordering.system.payment.service.messaging.mapper.PaymentMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.avro.specific.SpecificRecordBase;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
-import org.springframework.util.concurrent.ListenableFutureCallback;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Slf4j
