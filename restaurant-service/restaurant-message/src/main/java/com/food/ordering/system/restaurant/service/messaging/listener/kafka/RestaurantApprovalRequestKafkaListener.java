@@ -1,13 +1,13 @@
-package messaging.listener.kafka;
+package com.food.ordering.system.messaging.listener.kafka;
 
 import com.food.ordering.system.kafka.consumer.KafkaConsumer;
 import com.food.ordering.system.kafka.order.avro.model.RestaurantApprovalRequestAvroModel;
 
 import com.food.ordering.system.restaurant.service.domain.exception.RestaurantNotFoundException;
+import com.food.ordering.system.restaurant.service.messaging.mapper.RestaurantMessagingDataMapper;
 import com.food.ordering.system.service.domain.exception.RestaurantApplicationServiceException;
 import com.food.ordering.system.service.domain.ports.input.message.listener.RestaurantApprovalRequestMessageListener;
 import lombok.extern.slf4j.Slf4j;
-import messaging.mapper.RestaurantMessagingDataMapper;
 import org.postgresql.util.PSQLState;
 import org.springframework.dao.DataAccessException;
 import org.springframework.kafka.annotation.KafkaListener;
