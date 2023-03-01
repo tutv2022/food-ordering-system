@@ -26,7 +26,7 @@ public class OrderCreateRequestHandler {
     private final OrderSagaHelper orderSagaHelper;
 
 
-    public OrderCreateRequestHandler(OrderCreateHelper orderCreateHelper, OrderDataMapper orderDataMapper, OrderCreatedPaymentRequestMessagePublisher orderCreatedPaymentRequestMessagePublisher,
+    public OrderCreateRequestHandler(OrderCreateHelper orderCreateHelper, OrderDataMapper orderDataMapper,
                                      PaymentOutboxHelper paymentOutboxHelper,
                                      OrderSagaHelper orderSagaHelper) {
         this.orderCreateHelper = orderCreateHelper;

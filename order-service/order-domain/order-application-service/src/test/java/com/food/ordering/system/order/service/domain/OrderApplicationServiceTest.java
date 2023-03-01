@@ -1,5 +1,6 @@
 package com.food.ordering.system.order.service.domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.food.ordering.system.domain.valueobject.*;
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderRequest;
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderResponse;
@@ -14,11 +15,11 @@ import com.food.ordering.system.order.service.domain.mapper.OrderDataMapper;
 import com.food.ordering.system.order.service.domain.ports.input.OrderApplicationService;
 import com.food.ordering.system.order.service.domain.ports.output.repository.CustomerRepository;
 import com.food.ordering.system.order.service.domain.ports.output.repository.OrderRepository;
+import com.food.ordering.system.order.service.domain.ports.output.repository.PaymentOutboxRepository;
 import com.food.ordering.system.order.service.domain.ports.output.repository.RestaurantRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.mockito.internal.matchers.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -50,6 +51,12 @@ public class OrderApplicationServiceTest {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
+    @Autowired
+    private PaymentOutboxRepository paymentOutboxRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     private CreateOrderRequest createOrderRequest;
 
     private CreateOrderRequest createOrderRequestWrongPrice;
@@ -61,6 +68,8 @@ public class OrderApplicationServiceTest {
     private final UUID PRODUCT_ID = UUID.fromString("6dee00c0-b061-11ed-afa1-0242ac120002");
     private final UUID PRODUCT_ID2 = UUID.fromString("6dee00c2-b061-11ed-afa1-0242ac120002");
     private final UUID ORDER_ID = UUID.fromString("7abd6ef8-b061-11ed-afa1-0242ac120002");
+
+    private final UUID SAGA_ID = UUID.fromString("7abd6999-b061-11ed-afa1-0242ac129992");
     private final BigDecimal PRICE = new BigDecimal("200.00" );
 
     @BeforeAll
