@@ -28,11 +28,10 @@ public class RestaurantApprovalResponseMessageListenerImpl implements Restaurant
 
     @Override
     public void orderRejected(RestaurantApprovalResponse restaurantApprovalResponse) {
-        OrderCancelledEvent orderCancelledEvent = orderApprovalSaga.rollback(restaurantApprovalResponse);
-        log.info("Publishing order cancelled event for order id: {}" +
+        orderApprovalSaga.rollback(restaurantApprovalResponse);
+        log.info("Order Approval Saga Rollback operation is completed for order id: {}" +
                   "with failure messages: {}", restaurantApprovalResponse.getOrderId(),
                  String.join(FAILURE_MESSAGE_DELIMITER, restaurantApprovalResponse.getFailureMessages()));
-        orderCancelledEvent.fire();
 
     }
 }

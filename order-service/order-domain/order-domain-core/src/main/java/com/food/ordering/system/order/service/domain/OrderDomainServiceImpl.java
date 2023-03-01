@@ -19,14 +19,13 @@ public class OrderDomainServiceImpl implements OrderDomainService{
 
     private static final String UTC = "UTC";
     @Override
-    public OrderCreatedEvent validateAndInitiateOrder(Order order, Restaurant restaurant,
-                                                      DomainEventPublisher<OrderCreatedEvent> domainEventPublisher ) {
+    public OrderCreatedEvent validateAndInitiateOrder(Order order, Restaurant restaurant) {
         validateResaturant(restaurant);
         setOrderProductInformation(order,restaurant);
         order.validateOrder();
         order.initializeOrder();
         log.info("Order with id: {} is initiated!");
-        return new OrderCreatedEvent(order, ZonedDateTime.now(ZoneId.of(UTC)), domainEventPublisher);
+        return new OrderCreatedEvent(order, ZonedDateTime.now(ZoneId.of(UTC)));
     }
 
     private void setOrderProductInformation(Order order, Restaurant restaurant) {
@@ -50,10 +49,10 @@ public class OrderDomainServiceImpl implements OrderDomainService{
     }
 
     @Override
-    public OrderPaidEvent payOrder(Order order, DomainEventPublisher<OrderPaidEvent> domainEventPublisher) {
+    public OrderPaidEvent payOrder(Order order) {
         order.pay();
         log.info("Order with id: {} is paid", order.getId().getValue());
-        return new OrderPaidEvent(order, ZonedDateTime.now(ZoneId.of(UTC)), domainEventPublisher);
+        return new OrderPaidEvent(order, ZonedDateTime.now(ZoneId.of(UTC)));
     }
 
     @Override
@@ -63,11 +62,10 @@ public class OrderDomainServiceImpl implements OrderDomainService{
     }
 
     @Override
-    public OrderCancelledEvent cancelOrderPayment(Order order, List<String> failureMessages,
-                                                  DomainEventPublisher<OrderCancelledEvent> domainEventPublisher ) {
+    public OrderCancelledEvent cancelOrderPayment(Order order, List<String> failureMessages ) {
         order.initCancel(failureMessages);
         log.info("Order payment is cancelling for order id: {}", order.getId().getValue());
-        return new OrderCancelledEvent(order, ZonedDateTime.now(ZoneId.of(UTC)), domainEventPublisher );
+        return new OrderCancelledEvent(order, ZonedDateTime.now(ZoneId.of(UTC)) );
     }
 
     @Override

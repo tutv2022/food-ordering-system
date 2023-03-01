@@ -9,19 +9,11 @@ import java.util.List;
 
 public class PaymentFailedEvent extends PaymentEvent{
 
-    private DomainEventPublisher<PaymentFailedEvent> domainEventPublisher;
-
-    public PaymentFailedEvent(Payment payment, ZonedDateTime createdAt, List<String> failureMessages, DomainEventPublisher<PaymentFailedEvent> domainEventPublisher) {
+    public PaymentFailedEvent(Payment payment, ZonedDateTime createdAt, List<String> failureMessages) {
         super(payment, createdAt, failureMessages);
-        this.domainEventPublisher = domainEventPublisher;
     }
-    public PaymentFailedEvent(Payment payment, ZonedDateTime createdAt, DomainEventPublisher<PaymentFailedEvent> domainEventPublisher) {
+    public PaymentFailedEvent(Payment payment, ZonedDateTime createdAt) {
         super(payment, createdAt, Collections.emptyList());
-        this.domainEventPublisher = domainEventPublisher;
     }
 
-    @Override
-    public void fire() {
-        domainEventPublisher.publish(this);
-    }
 }

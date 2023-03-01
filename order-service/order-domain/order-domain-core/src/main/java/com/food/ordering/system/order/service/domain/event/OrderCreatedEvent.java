@@ -8,15 +8,8 @@ import java.time.ZonedDateTime;
 
 public class OrderCreatedEvent extends OrderEvent{
 
-    DomainEventPublisher<OrderCreatedEvent> domainEventPublisher;
-
-    public OrderCreatedEvent(Order order, ZonedDateTime createdAt, DomainEventPublisher<OrderCreatedEvent> domainEventPublisher) {
+    public OrderCreatedEvent(Order order, ZonedDateTime createdAt) {
         super(order, createdAt);
-        this.domainEventPublisher = domainEventPublisher;
     }
 
-    @Override
-    public void fire() {
-        domainEventPublisher.publish(this);
-    }
 }
