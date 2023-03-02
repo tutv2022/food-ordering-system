@@ -1,18 +1,18 @@
 package com.food.ordering.system.payment.service.messaging.producer.kafka;
 
+import com.food.ordering.system.domain.event.publisher.DomainEventPublisher;
 import com.food.ordering.system.kafka.order.avro.model.PaymentResponseAvroModel;
 import com.food.ordering.system.kafka.producer.KafkaMessageHelper;
 import com.food.ordering.system.kafka.producer.service.KafkaProducer;
 import com.food.ordering.system.payment.service.domain.config.PaymentServiceConfigData;
 import com.food.ordering.system.payment.service.domain.event.PaymentCompletedEvent;
-import com.food.ordering.system.payment.service.domain.ports.output.message.publisher.PaymentCompletedMessagePublisher;
 import com.food.ordering.system.payment.service.messaging.mapper.PaymentMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class PaymentCompletedKafkaMessagePublisher implements PaymentCompletedMessagePublisher {
+public class PaymentCompletedKafkaMessagePublisher implements DomainEventPublisher<PaymentCompletedEvent> {
 
     private final PaymentMessagingDataMapper paymentMessagingDataMapper;
 
@@ -40,7 +40,7 @@ public class PaymentCompletedKafkaMessagePublisher implements PaymentCompletedMe
             paymentMessagingDataMapper.paymentCompletedEventToPaymentResponseAvroModel(domainEvent);
 
         try {
-            kafkaProducer.send(paymentServiceConfigData.getPaymentResponseTopicName(),
+/*            kafkaProducer.send(paymentServiceConfigData.getPaymentResponseTopicName(),
                     orderId,
                     paymentResponseAvroModel,
                     kafkaMessageHelper.getKafkaCallback(
@@ -48,7 +48,7 @@ public class PaymentCompletedKafkaMessagePublisher implements PaymentCompletedMe
                             paymentResponseAvroModel,
                             orderId,
                             "PaymentResponseAvroModel" )
-                    );
+                    );*/
 
             log.info("PaymentResponseAvroModel sent to kafka for order id: {}", orderId);
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 package com.food.ordering.system.order.service.domain.ports.output.repository;
 
-import com.food.ordering.system.SagaStatus;
+import com.food.ordering.system.saga.SagaStatus;
 import com.food.ordering.system.order.service.domain.outbox.model.approval.OrderApprovalOutboxMessage;
 import com.food.ordering.system.order.service.domain.outbox.model.payment.OrderPaymentEventPayload;
 import com.food.ordering.system.order.service.domain.outbox.model.payment.OrderPaymentOutboxMessage;

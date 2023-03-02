@@ -1,6 +1,6 @@
 package com.food.ordering.system.order.service.domain;
 
-import com.food.ordering.system.SagaStatus;
+import com.food.ordering.system.saga.SagaStatus;
 import com.food.ordering.system.SagaStep;
 import com.food.ordering.system.domain.valueobject.OrderStatus;
 import com.food.ordering.system.domain.valueobject.PaymentStatus;

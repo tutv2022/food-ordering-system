@@ -1,6 +1,6 @@
 package com.food.ordering.system.order.service.domain.outbox.scheduler.approval;
 
-import com.food.ordering.system.SagaStatus;
+import com.food.ordering.system.saga.SagaStatus;
 import com.food.ordering.system.order.service.domain.outbox.model.approval.OrderApprovalOutboxMessage;
 import com.food.ordering.system.order.service.domain.ports.output.message.publisher.restaurantapproval.RestaurantApprovalRequestMessagePublisher;
 import com.food.ordering.system.outbox.OutboxScheduler;
