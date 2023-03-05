@@ -71,6 +71,7 @@ public class PaymentOutboxHelper {
                      .id(UUID.randomUUID())
                      .sagaId(sagaId)
                      .createdAt(paymentEventPayload.getCreatedAt())
+                     .type(ORDER_SAGA_NAME)
                      .payLoad(createPayload(paymentEventPayload))
                      .orderStatus(orderStatus)
                      .sagaStatus(sagaStatus)
